@@ -17,12 +17,32 @@
 <body>
 
 <div class="container" ng-controller="indexController">
+
+    <form novalidate ng-submit="loadProducts()">
+        <div class="form-floating input-group-sm">
+            <input type="text" class="form-control" id="filterTitle" placeholder="" ng-model="filter.title_part">
+            <label for="filterTitle">Название товара</label>
+        </div>
+        <p></p>
+        <div class="form-floating input-group-sm">
+            <input type="number" class="form-control" id="filterMinPrice" placeholder="" ng-model="filter.min_price">
+            <label for="filterMinPrice">Мин. цена</label>
+        </div>
+        <p></p>
+        <div class="form-floating input-group-sm">
+            <input type="number" class="form-control" id="filterMaxPrice" placeholder="" ng-model="filter.max_price">
+            <label for="filterMaxPrice">Макс. цена</label>
+        </div>
+        <p></p>
+        <button class="btn btn-outline-warning btn-sm" style="width: 100%;" type="submit">Применить</button>
+    </form>
+
     <h3>Список продуктов</h3>
     <table class="table table-hover">
         <tr>
             <td>ID</td>
-            <td>Title</td>
-            <td>Price</td>
+            <td>Название товара</td>
+            <td>Цена</td>
             <td>Действие</td>
         </tr>
         <tbody>
@@ -45,16 +65,6 @@
         <input class="form-control" type="number" placeholder="Price" ng-model="newProduct.price">
         <p></p>
         <button type="submit" class="btn btn-primary">Добавить продукт</button>
-    </form>
-
-    <p></p>
-    <h3>Фильтры</h3>
-    <form novalidate ng-submit="filter()">
-        <input class="form-control" type="number" placeholder="Min" ng-model="filtr.min">
-        <p></p>
-        <input class="form-control" type="number" placeholder="Max" ng-model="filtr.max">
-        <p></p>
-        <button type="submit" class="btn btn-primary">Filter</button>
     </form>
 </div>
 
