@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/products")
 public class ProductController {
 
     private ProductService productService;
@@ -20,7 +21,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/products")
+    @GetMapping()
     public Page<Product> getAllProducts(@RequestParam(name = "p", defaultValue = "1") Integer page,
                                         @RequestParam(name = "min_price", required = false) Integer minPrice,
                                         @RequestParam(name = "max_price", required = false) Integer maxPrice,
@@ -31,17 +32,24 @@ public class ProductController {
         return productService.find(minPrice, maxPrice, titlePart, page);
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public Product getProductById(@PathVariable Long id) {
         return productService.getProductById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found, id: " + id));
     }
 
-    @PostMapping("/products")
+    @PostMapping()
     public void getProduct(@RequestBody Product p) {
+        p.setId(null);
         productService.saveProduct(p);
     }
 
-    @DeleteMapping("/products/{id}")
+
+    @PutMapping()
+    public void updateProduct(@RequestBody Product p) {
+        productService.saveProduct(p);
+    }
+
+    @DeleteMapping("/{id}")
     public void deleteProductById(@PathVariable Long id) {
         productService.deleteProductByID(id);
     }
